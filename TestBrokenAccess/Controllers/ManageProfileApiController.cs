@@ -24,13 +24,14 @@ namespace TestBrokenAccess.Controllers
             return "success";
         }
 
-        [Authorize]
-        public ActionResult GetProfile(string id)
+        //[Authorize]
+        [HttpGet]
+        public ActionResult GetProfile(string email)
         {
 
-            if(Guid.TryParse(id, out var profileId))
+            if(email != null)
             {
-                var user = _userRepository.GetUserInfo(profileId);
+                var user = _userRepository.GetUserInfo(email);
 
                 //var response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
                 return new ContentResult()

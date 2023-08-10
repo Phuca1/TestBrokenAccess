@@ -77,9 +77,9 @@ namespace TestBrokenAccess.Repositories
             }).ToList();
         }
 
-        public CookieUserItem GetUserInfo(Guid userId)
+        public CookieUserItem GetUserInfo(string email)
         {
-            CookieUser user =  _db.Users.FirstOrDefault(item => item.Id.Equals(userId));
+            CookieUser user =  _db.Users.FirstOrDefault(item => item.EmailAddress.Equals(email));
             if(user != null)
             {
                 return new CookieUserItem()

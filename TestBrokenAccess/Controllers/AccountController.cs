@@ -57,7 +57,7 @@ namespace TestBrokenAccess.Controllers
                 SameSite = SameSiteMode.Lax,
             };
 
-            Response.Cookies.Append("name", user.Name, unsecuredCookieOptions);
+            Response.Cookies.Append("email", user.EmailAddress, unsecuredCookieOptions);
 
             CookieOptions securedCookieOptions2 = new CookieOptions()
             {
@@ -69,7 +69,7 @@ namespace TestBrokenAccess.Controllers
                 SameSite = SameSiteMode.Lax,
             };
 
-            Response.Cookies.Append("email", user.EmailAddress, securedCookieOptions2);
+            Response.Cookies.Append("user", user.Name, securedCookieOptions2);
 
             //HttpContext.Response.Cookie
             return LocalRedirect("~/Home/Index");

@@ -6,6 +6,8 @@ using TestBrokenAccess.Data;
 using TestBrokenAccess.Models;
 using TestBrokenAccess.Repositories;
 using Microsoft.AspNetCore.Identity;
+using System.Web.Mvc;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<TestBrokenAccessContext>(options =>
@@ -40,6 +42,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+});
 
 var app = builder.Build();
 
@@ -69,6 +75,17 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "api",
+    pattern: "api/{controller}/{action}");
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API v1");
+    c.RoutePrefix = "swagger"; // Serve the Swagger UI at the root URL
+});
 
 app.Run();
 

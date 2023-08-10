@@ -7,6 +7,6 @@ namespace TestBrokenAccess.Repositories
         CookieUserItem Register(RegisterModel model);
         CookieUserItem Validate(LoginModel model);
         public List<CookieUserItem> GetListUsers();
-        public CookieUserItem GetUserInfo(Guid userId);
+        public CookieUserItem GetUserInfo(string email);
     }
 }
