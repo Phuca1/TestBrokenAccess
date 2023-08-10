@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<CookieUserItem>
+@functions{
+}
+@*
+<script>
+    function modifyRole(userId, role){
+        fetch("~/UpdateRole", {
+            method : "POST",
+            body: JSON.stringify({
+                userId,
+                role
+            })
+        }).catch(err =>{
+            console.log("Error" + err);
+        });
+    }
+</script>*@
+
+<h1>View Profiles</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.UserId)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Role)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+        <tr>
+            <form>
+                <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Role)</td>
+                @*<input type="text" id=@item.UserId value=@item.UserId />*@
+                <td>@if(item.Role != RoleType.Admin){
+                        @*<button onclick='() => { modifyRole(@item.UserId, 0) }'>Upgrade</button>*@
+                        <input type="button" onclick="modifyRole(@item.UserId, 0)" value="Upgrade"/>
+                    }else{
+                        <button onclick='() => { modifyRole(@item.UserId, 1)}'>Downgrade</button>
+                    }
+                </td>
+            </form>
+        </tr>
+        }
+    </tbody>
+</table>

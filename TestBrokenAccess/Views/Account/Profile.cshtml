@@ -1,0 +1,26 @@
+﻿@model System.Collections.Generic.Dictionary<string, string>
+
+<h1>Claims of User</h1>
+<table>
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            Value
+        </td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Key</td>
+            <td>@item.Value</td>
+        </tr>
+    }
+</table>
+
+<h1>Information about User</h1>
+<div id="user-info">
+
+</div>
+<script src="~/js/info.js"></script>
